@@ -44,8 +44,8 @@ export default {
 
 可以向`vue-scratch-card`组件传递的props值：
 
-Name | Type | Default | Description 
-- | :-: | :-: | -: 
+Name | Type | Default | Description  
+------------- | ------------- | ------------- | -------------
 element-id | String| scratch | 可选，组件最外层DOM的id属性。如果页面中超多一次调用`vue-scratch-card`，必须传入该属性区分不同的刮刮卡组件
 ratio | Number | 0.3 | 可选，要求刮掉的面积占比，达到这个占比后，将会自动把其余区域清除
 start-callback | Function |  | 可选，第一次触碰到刮刮卡的函数。比如可以在这个函数中调取抽奖接口
