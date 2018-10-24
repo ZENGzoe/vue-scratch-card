@@ -1,6 +1,7 @@
 <template>
     <div :id='elementId' class='scratchCard'>
         <div class="result" v-show='showLucky'>
+           
             <slot name='result'></slot>
             <img :src="resultImg" alt="" class="pic" />
         </div>
@@ -13,14 +14,13 @@
         name : 'vueScratchCard',
         data(){
             return {
-                supportTouch : false,
-                events : [],           
-                startMoveHandler : null,
-                moveHandler : null,
-                endMoveHandler : null,
-                canDraw : true,
-                showLucky : false,
-                firstTouch : true,
+                supportTouch : false,       //是否支持touch事件
+                events : [],                //touch事件 or mouse事件合集
+                startMoveHandler : null,     //touchstart or mousedown 事件
+                moveHandler : null,         //touchmove or mousemove 事件
+                endMoveHandler : null,      //touchend or mouseend 事件
+                showLucky : false,          //显示隐藏抽奖结果
+                firstTouch : true,          //是否第一次touchstart or mousedown
             }
         },
         props : {
@@ -39,13 +39,11 @@
             startCallback : {   //第一次刮回调函数
                 type : Function,
                 default : function(){
-                    
                 }
             },
             clearCallback : {   //达到ratio占比后的回调函数
                 type : Function ,
                 default : function(){
-                   
                 }
             },
             coverColor : {  //刮刮卡遮罩颜色
@@ -59,9 +57,6 @@
                 type : String,
                 default : 'https://raw.githubusercontent.com/ZENGzoe/imagesCollection/master/2018/default.jpg'
             }
-        },
-        computed : {
-
         },
         mounted : function(){
             this.$nextTick(() => {
@@ -90,7 +85,7 @@
             },
             createCanvasStyle : function(){
                 var _this = this;
-
+                //当传入coverImg时，优先使用图片，否则使用颜色作为刮刮卡遮罩
                 if(this.coverImg){
                     var coverImg = new Image();
                     coverImg.src = this.coverImg;
@@ -134,6 +129,7 @@
                       scrollL = document.documentElement.scrollLeft || document.body.scrollLeft,
                       mouseX = e.pageX - canvasPos.left - scrollL,
                       mouseY = e.pageY - canvasPos.top - scrollT;
+
                 this.ctx.beginPath();
                 this.ctx.fillStyle = '#FFFFFF';
                 this.ctx.globalCompositeOperation = "destination-out";
@@ -150,7 +146,6 @@
                 this.caleArea();
                 
             },
-
             caleArea : function(){
                 let pixels = this.ctx.getImageData(0,0,this.canvas.width,this.canvas.height),
                     transPixels = [];
@@ -167,12 +162,10 @@
                     this.canvas.removeEventListener(this.events[0],this.startMoveHandler);
                     this.canvas.removeEventListener(this.events[1] , this.moveHandler , false);
                     document.removeEventListener(this.events[2] , this.endMoveHandler , false);
-                    this.endMoveHandler = null;
 
                     this.clearCallback();
                 }
             }
-
         }
     }
 </script>
