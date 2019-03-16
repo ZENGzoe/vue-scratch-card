@@ -65,7 +65,7 @@
         },
         methods : {
             init : function(){
-                if(!this.isSupportCanvas){
+                if(!this.isSupportCanvas()){
                     alert('当前浏览器不支持canvas');
                     return;
                 }
