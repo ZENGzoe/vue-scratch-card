@@ -81,7 +81,7 @@
             },
             isSupportCanvas : function(){
                 var elem = document.createElement('canvas');
-                return !!(elem.getContext && ele.getContext('2d'))
+                return !!(elem.getContext && elem.getContext('2d'))
             },
             createCanvasStyle : function(){
                 var _this = this;
